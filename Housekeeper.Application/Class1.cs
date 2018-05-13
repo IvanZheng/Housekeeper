@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warehouse.Infrastructure
+namespace Housekeeper.Application
 {
     public class Class1
     {

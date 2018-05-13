@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Warehouse.Portal
+namespace Housekeeper.Portal
 {
     public class Program
     {
