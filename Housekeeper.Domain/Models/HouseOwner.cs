@@ -1,6 +1,8 @@
-﻿namespace Housekeeper.Domain.Models
+﻿using IFramework.Domain;
+
+namespace Housekeeper.Domain.Models
 {
-    public class HouseOwner
+    public class HouseOwner: ValueObject<HouseOwner>
     {
         public string Id { get; protected set; }
         public string Name { get; protected set; }

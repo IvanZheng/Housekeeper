@@ -14,6 +14,7 @@ namespace Housekeeper.Portal
     {
         public Startup(IConfiguration configuration)
         {
+            
             Configuration = configuration;
         }
 

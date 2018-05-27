@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using IFramework.Domain;
 
 namespace Housekeeper.Domain.Models
 {
-    public class Media
+    public class Media: ValueObject<Media>
     {
         public string Name { get; protected set; }
         public string Url { get; protected set; }

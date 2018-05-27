@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Housekeeper.Domain.Models
 {
-    class Room
+    public class Room
     {
     }
 }

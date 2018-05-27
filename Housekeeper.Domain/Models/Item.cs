@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Housekeeper.Domain.Models
 {
-    public class Item
+    public class Item: AggregateRoot
     {
         public string Id { get; protected set; }
         public string Name { get; protected set; }

@@ -1,5 +1,5 @@
 {
-  "name": "Warehouse.Portal",
+  "name": "housekeeper.portal",
   "version": "0.0.0",
   "dependencies": {
     "@angular/animations": {
