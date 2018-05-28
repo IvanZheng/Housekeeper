@@ -2,11 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Housekeeper.Portal.Models;
+using HouseKeeper.Persistence;
+using IFramework.Config;
+using IFramework.DependencyInjection;
+using IFramework.DependencyInjection.Autofac;
+using IFramework.EntityFrameworkCore;
+using IFramework.JsonNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Housekeeper.Portal
 {
@@ -14,20 +22,26 @@ namespace Housekeeper.Portal
     {
         public Startup(IConfiguration configuration)
         {
-            
-            Configuration = configuration;
+            Configuration.Instance
+                         .UseAutofacContainer()
+                         .UseConfiguration(configuration)
+                         .UseCommonComponents()
+                         .UseJsonNet()
+                         .UseEntityFrameworkComponents<HousekeeperDbContext>();
         }
-
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMvc();
+            services.Configure<WeChatApp>(configuration.GetSection(nameof(WeChatApp)))
+                    .AddMvc();
+            return ObjectProviderFactory.Instance
+                                        .Build(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {

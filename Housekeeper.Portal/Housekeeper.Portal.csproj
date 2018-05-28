@@ -10,8 +10,10 @@
   <ItemGroup>
     <PackageReference Include="IFramework.AspNet" Version="2.0.0-prelease-0001" />
     <PackageReference Include="IFramework.DependencyInjection.Autofac" Version="2.0.0-prelease-0001" />
+    <PackageReference Include="IFramework.JsonNet" Version="2.0.0-prelease-0001" />
     <PackageReference Include="IFramework.Log4Net" Version="2.0.0-prelease-0001" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="14.12.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,10 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Housekeeper.Persistence\Housekeeper.Persistence.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
