@@ -32,9 +32,9 @@ namespace Housekeeper.Portal
         
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.Configure<WeChatApp>(configuration.GetSection(nameof(WeChatApp)))
+            services.Configure<WeChatApp>(Configuration.Instance.GetSection(nameof(WeChatApp)))
                     .AddMvc();
             return ObjectProviderFactory.Instance
                                         .Build(services);

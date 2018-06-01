@@ -5,15 +5,16 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IFramework.AspNet" Version="2.0.0-prelease-0001" />
-    <PackageReference Include="IFramework.DependencyInjection.Autofac" Version="2.0.0-prelease-0001" />
-    <PackageReference Include="IFramework.JsonNet" Version="2.0.0-prelease-0001" />
-    <PackageReference Include="IFramework.Log4Net" Version="2.0.0-prelease-0001" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="14.12.3" />
+    <PackageReference Include="IFramework.AspNet" Version="2.0.0-prelease-0002" />
+    <PackageReference Include="IFramework.DependencyInjection.Autofac" Version="2.0.0-prelease-0002" />
+    <PackageReference Include="IFramework.JsonNet" Version="2.0.0-prelease-0002" />
+    <PackageReference Include="IFramework.Log4Net" Version="2.0.0-prelease-0002" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="14.14.0" />
   </ItemGroup>
 
   <ItemGroup>
