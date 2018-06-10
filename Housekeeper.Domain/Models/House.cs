@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using IFramework.Infrastructure;
 using Dto = Housekeeper.Application.Contracts.Dto;
@@ -11,6 +12,17 @@ namespace Housekeeper.Domain.Models
 
         public House(string name, HouseOwner owner, Address address = null, Status status = Status.Normal)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
+            }
+
+            
+            if (string.IsNullOrWhiteSpace(owner?.Id))
+            {
+                throw new NullReferenceException(nameof(owner.Id));
+            }
+
             Id = ObjectId.GenerateNewId()
                          .ToString();
             Name = name;
