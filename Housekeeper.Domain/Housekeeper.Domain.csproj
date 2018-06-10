@@ -4,8 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="IFramework" Version="2.0.0-prelease-0002" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Housekeeper.Application.Data\Housekeeper.Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using IFramework.Domain;
+using Dto = Housekeeper.Application.Contracts.Dto;
 
 namespace Housekeeper.Domain.Models
 {
@@ -25,5 +26,15 @@ namespace Housekeeper.Domain.Models
             City = city;
             Detail = detail;
         }
+
+        public static implicit operator Address(Dto.Address address) => new Address(address.Country,
+                                                                                    address.Province,
+                                                                                    address.City,
+                                                                                    address.Detail);
+
+        public static implicit operator Dto.Address(Address address) => new Dto.Address(address.Country,
+                                                                                        address.Province,
+                                                                                        address.City,
+                                                                                        address.Detail);
     }
 }

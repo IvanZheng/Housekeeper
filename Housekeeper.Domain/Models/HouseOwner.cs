@@ -1,4 +1,5 @@
 ﻿using IFramework.Domain;
+using Housekeeper.Application.Contracts.Dto;
 
 namespace Housekeeper.Domain.Models
 {
@@ -17,5 +18,11 @@ namespace Housekeeper.Domain.Models
             Id = id;
             Name = name;
         }
+
+        public static implicit operator IdName(HouseOwner houseOwner) => new IdName(houseOwner.Id,
+                                                                                    houseOwner.Name);
+
+        public static implicit operator HouseOwner(IdName houseOwner) => new HouseOwner(houseOwner.Id,
+                                                                                        houseOwner.Name);
     }
 }

@@ -1,5 +1,8 @@
-﻿using IFramework.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using IFramework.Domain;
 using IFramework.Infrastructure;
+using Dto = Housekeeper.Application.Contracts.Dto;
 
 namespace Housekeeper.Domain.Models
 {
@@ -37,5 +40,15 @@ namespace Housekeeper.Domain.Models
         public float Width { get; protected set; }
         public float Height { get; protected set; }
         public Status Status { get; protected set; }
+
+
+        public static implicit operator Dto.Room(Room room) => new Dto.Room(room.Id,
+                                                                            room.Name, 
+                                                                            room.Floor,
+                                                                            room.Area,
+                                                                            room.Long,
+                                                                            room.Width,
+                                                                            room.Height,
+                                                                            room.Status);
     }
 }

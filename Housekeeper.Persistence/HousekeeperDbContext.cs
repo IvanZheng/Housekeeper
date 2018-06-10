@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Housekeeper.Domain.Models;
 using IFramework.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,43 @@ namespace HouseKeeper.Persistence
             modelBuilder.Owned<Address>();
             modelBuilder.Owned<HouseOwner>();
 
+        }
+
+        public override int SaveChanges()
+        {
+            UpdateEntitiesModification();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            UpdateEntitiesModification();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        {
+            UpdateEntitiesModification();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+
+        private void UpdateEntitiesModification()
+        {
+            foreach (var e in ChangeTracker.Entries())
+            {
+                if (e.Entity is IUpdatable updatable)
+                {
+                    if (e.State == EntityState.Modified)
+                    {
+                        updatable.UpdateModification();
+                    }
+                    else if (e.State == EntityState.Added)
+                    {
+                        updatable.UpdateCreation();
+                    }
+                }
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Housekeeper.Domain.Models
 {
-    public abstract class AggregateRoot: IFramework.Domain.AggregateRoot
+    public abstract class AggregateRoot: IFramework.Domain.AggregateRoot, IUpdatable
     {
         public DateTime CreatedTime { get; protected set; }
         public DateTime ModifiedTime { get; protected set; }
