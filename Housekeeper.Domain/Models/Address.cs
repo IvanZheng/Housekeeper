@@ -7,6 +7,7 @@ namespace Housekeeper.Domain.Models
 {
     public class Address: ValueObject<Address>
     {
+        public static Address Null = new Address();
         public string Country { get; protected set; }
         public string Province { get; protected set; }
         public string City { get; protected set; }

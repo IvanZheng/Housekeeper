@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Housekeeper.Domain.Repositories;
+using Housekeeper.Persistence.Repositories;
 using Housekeeper.Portal.Models;
 using HouseKeeper.Persistence;
 using IFramework.Config;
@@ -12,6 +11,7 @@ using IFramework.JsonNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,21 +23,31 @@ namespace Housekeeper.Portal
         public Startup(IConfiguration configuration)
         {
             Configuration.Instance
-                         .UseAutofacContainer()
+                         .UseAutofacContainer(a => a.GetName().Name.StartsWith("Housekeeper"))
                          .UseConfiguration(configuration)
                          .UseCommonComponents()
                          .UseJsonNet()
-                         .UseEntityFrameworkComponents<HousekeeperDbContext>();
+                         .UseEntityFrameworkComponents<HousekeeperDbContext>()
+                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseMySql(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext)).ConnectionString));
         }
-        
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddMiniProfiler()
+                    .AddEntityFramework();
             services.Configure<WeChatApp>(Configuration.Instance.GetSection(nameof(WeChatApp)))
                     .AddMvc();
             return ObjectProviderFactory.Instance
+                                        .RegisterComponents(RegisterComponents, ServiceLifetime.Scoped)
                                         .Build(services);
+        }
+
+        private static void RegisterComponents(IObjectProviderBuilder providerBuilder, ServiceLifetime lifetime)
+        {
+            // TODO: register other components or services
+            providerBuilder.Register<IHousekeeperRepository, HousekeeperRepository>(lifetime);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,16 +67,16 @@ namespace Housekeeper.Portal
             }
 
             app.UseStaticFiles();
-
+            app.UseMiniProfiler();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                                "default",
+                                "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                                           "spa-fallback",
+                                           new {controller = "Home", action = "Index"});
             });
         }
     }
