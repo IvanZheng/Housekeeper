@@ -27,8 +27,8 @@ namespace Housekeeper.Portal
                          .UseConfiguration(configuration)
                          .UseCommonComponents()
                          .UseJsonNet()
-                         .UseEntityFrameworkComponents<HousekeeperDbContext>()
-                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseMySql(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext)).ConnectionString));
+                         .UseEntityFrameworkComponents(typeof(RepositoryBase<>), new []{typeof(HousekeeperDbContext)})
+                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseMySql(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext))));
         }
 
 

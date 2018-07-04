@@ -18,12 +18,8 @@ namespace Housekeeper.Portal.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var houses = await _repository.FindAll<House>()
-                                          .ToListAsync()
-                                          .ConfigureAwait(false);
-            Console.WriteLine(houses?.Count);
             return View();
         }
 

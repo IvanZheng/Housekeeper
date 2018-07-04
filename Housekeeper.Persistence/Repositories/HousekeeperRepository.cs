@@ -8,9 +8,7 @@ namespace Housekeeper.Persistence.Repositories
 {
     public class HousekeeperRepository : DomainRepository, IHousekeeperRepository
     {
-        public HousekeeperRepository(HousekeeperDbContext context,
-                                     IAppUnitOfWork unitOfWork,
-                                     IObjectProvider objectProvider)
-            : base(context, unitOfWork, objectProvider) { }
+        public HousekeeperRepository(IObjectProvider objectProvider)
+            : base(objectProvider) { }
     }
 }
