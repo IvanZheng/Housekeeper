@@ -7,7 +7,9 @@ using IFramework.Config;
 using IFramework.DependencyInjection;
 using IFramework.DependencyInjection.Autofac;
 using IFramework.EntityFrameworkCore;
+using IFramework.Infrastructure;
 using IFramework.JsonNet;
+using IFramework.Log4Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -27,8 +29,8 @@ namespace Housekeeper.Portal
                          .UseConfiguration(configuration)
                          .UseCommonComponents()
                          .UseJsonNet()
-                         .UseEntityFrameworkComponents(typeof(RepositoryBase<>), new []{typeof(HousekeeperDbContext)})
-                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseMySql(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext))));
+                         .UseEntityFrameworkComponents(typeof(RepositoryBase<>))
+                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseSqlServer(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext))));
         }
 
 
@@ -48,11 +50,13 @@ namespace Housekeeper.Portal
         {
             // TODO: register other components or services
             providerBuilder.Register<IHousekeeperRepository, HousekeeperRepository>(lifetime);
+            providerBuilder.Register<IExceptionManager, ExceptionManager>(ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.UseLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
