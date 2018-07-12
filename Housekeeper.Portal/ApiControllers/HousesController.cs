@@ -17,23 +17,22 @@ namespace Housekeeper.Portal.ApiControllers
         public HousesController(ILogger<HousesController> logger,
                                 HouseAppService hosueAppService,
                                 IHousekeeperRepository repository,
-                                IExceptionManager exceptionManager) : base(logger, exceptionManager)
+                                IConcurrencyProcessor concurrencyProcessor) : base(logger, concurrencyProcessor)
         {
             _hosueAppService = hosueAppService;
             _repository = repository;
         }
 
         [HttpGet]
-        public Task<ApiResult<House[]>> GetAsync()
+        public Task<House[]> GetAsync()
         {
-            return ExceptionManager.ProcessAsync(() => _repository.FindAll<House>()
-                                                                  .ToArrayAsync());
+            return ProcessAsync(() => _repository.FindAll<House>().ToArrayAsync());
         }
 
         [HttpPost]
-        public Task<ApiResult<string>> PostAsync([FromBody]Application.Contracts.Dto.House houseAdded)
+        public Task<string> PostAsync([FromBody]Application.Contracts.Dto.House houseAdded)
         {
-            return ExceptionManager.ProcessAsync(async () =>
+            return ProcessAsync(async () =>
             {
                 var house = await _hosueAppService.AddHouseAsync(houseAdded)
                                                   .ConfigureAwait(false);

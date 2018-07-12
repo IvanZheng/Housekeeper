@@ -3,20 +3,22 @@ using Housekeeper.Domain.Repositories;
 using Housekeeper.Persistence.Repositories;
 using Housekeeper.Portal.Models;
 using HouseKeeper.Persistence;
+using IFramework.AspNet;
 using IFramework.Config;
 using IFramework.DependencyInjection;
 using IFramework.DependencyInjection.Autofac;
 using IFramework.EntityFrameworkCore;
-using IFramework.Infrastructure;
 using IFramework.JsonNet;
 using IFramework.Log4Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ApiResultWrapAttribute = Housekeeper.Portal.Filters.ApiResultWrapAttribute;
 
 namespace Housekeeper.Portal
 {
@@ -38,9 +40,11 @@ namespace Housekeeper.Portal
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMiniProfiler()
-                    .AddEntityFramework();
+                    //.AddEntityFramework()
+                    ;
             services.Configure<WeChatApp>(Configuration.Instance.GetSection(nameof(WeChatApp)))
-                    .AddMvc();
+                    .AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             return ObjectProviderFactory.Instance
                                         .RegisterComponents(RegisterComponents, ServiceLifetime.Scoped)
                                         .Build(services);
@@ -50,7 +54,7 @@ namespace Housekeeper.Portal
         {
             // TODO: register other components or services
             providerBuilder.Register<IHousekeeperRepository, HousekeeperRepository>(lifetime);
-            providerBuilder.Register<IExceptionManager, ExceptionManager>(ServiceLifetime.Singleton);
+            providerBuilder.Register<IApiResultWrapAttribute, ApiResultWrapAttribute>(ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

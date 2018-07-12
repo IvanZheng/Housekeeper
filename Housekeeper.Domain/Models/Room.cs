@@ -8,6 +8,7 @@ namespace Housekeeper.Domain.Models
 {
     public class Room : Entity
     {
+        protected Room() { }
         public Room(string name,
                     string floor = null,
                     float area = 0,

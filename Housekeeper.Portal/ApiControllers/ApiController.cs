@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IFramework.AspNet;
 using IFramework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Housekeeper.Portal.ApiControllers
 {
+    [ServiceFilter(typeof(IApiResultWrapAttribute))]
     [Route("api/[controller]")]
-    public class ApiController: Controller
+    public class ApiController: ApiControllerBase
     {
         protected readonly ILogger Logger;
-        protected readonly IExceptionManager ExceptionManager;
 
-        public ApiController(ILogger logger, IExceptionManager exceptionManager)
+        public ApiController(ILogger logger, IConcurrencyProcessor concurrencyProcessor)
+            : base(concurrencyProcessor)
         {
             Logger = logger;
-            ExceptionManager = exceptionManager;
         }
     }
 }
