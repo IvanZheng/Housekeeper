@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Housekeeper.Domain.Models;
@@ -9,8 +11,12 @@ namespace HouseKeeper.Persistence
 {
     public class HousekeeperDbContext: MsDbContext 
     {
+        public static ConcurrentDictionary<int, int> DbContexts = new ConcurrentDictionary<int, int>();
+        public static int Count = 0;
         public HousekeeperDbContext(DbContextOptions options) : base(options)
         {
+            DbContexts.TryAdd(GetHashCode(), Count ++);
+            ChangeTracker.AutoDetectChangesEnabled = false;
             Database.EnsureCreated();
         }
 

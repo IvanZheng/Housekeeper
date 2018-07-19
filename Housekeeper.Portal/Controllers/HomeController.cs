@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Housekeeper.Domain.Models;
 using Housekeeper.Domain.Repositories;
+using HouseKeeper.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ namespace Housekeeper.Portal.Controllers
 
         public IActionResult Index()
         {
+            ViewData["dbcontextCount"] = HousekeeperDbContext.Count;
+
             return View();
         }
 

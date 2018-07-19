@@ -2,6 +2,7 @@
 using Housekeeper.Application;
 using Housekeeper.Domain.Models;
 using Housekeeper.Domain.Repositories;
+using HouseKeeper.Persistence;
 using IFramework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,20 +14,25 @@ namespace Housekeeper.Portal.ApiControllers
     {
         private readonly HouseAppService _hosueAppService;
         private readonly IHousekeeperRepository _repository;
+        private readonly HousekeeperDbContext _dbContext;
 
         public HousesController(ILogger<HousesController> logger,
                                 HouseAppService hosueAppService,
                                 IHousekeeperRepository repository,
-                                IConcurrencyProcessor concurrencyProcessor) : base(logger, concurrencyProcessor)
+                                IConcurrencyProcessor concurrencyProcessor,
+                                HousekeeperDbContext dbContext) : base(logger, concurrencyProcessor)
         {
             _hosueAppService = hosueAppService;
             _repository = repository;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
-        public Task<House[]> GetAsync()
+        public async Task<House[]> GetAsync()
         {
-            return ProcessAsync(() => _repository.FindAll<House>().ToArrayAsync());
+            var houses = await ProcessAsync(() => _repository.FindAll<House>().ToArrayAsync());
+            await Task.Delay(int.MaxValue);
+            return houses;
         }
 
         [HttpPost]

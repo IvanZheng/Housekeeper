@@ -28,6 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Housekeeper.Application.Contracts", "Housekeeper.Application.Data\Housekeeper.Application.Contracts.csproj", "{D5F2D580-20F1-4736-8042-1FE0AD3E579C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{97807FFE-9D14-4198-9ECD-2BD00EA43E9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Housekeeper.Tests", "Housekeeper.Tests\Housekeeper.Tests.csproj", "{1F004434-C98D-4227-9206-AE06A48905DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +62,10 @@ Global
 		{D5F2D580-20F1-4736-8042-1FE0AD3E579C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F2D580-20F1-4736-8042-1FE0AD3E579C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F2D580-20F1-4736-8042-1FE0AD3E579C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F004434-C98D-4227-9206-AE06A48905DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F004434-C98D-4227-9206-AE06A48905DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F004434-C98D-4227-9206-AE06A48905DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F004434-C98D-4227-9206-AE06A48905DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +77,7 @@ Global
 		{C960B100-5002-4FB5-88F0-B9FF25D39552} = {0529A7B8-A729-4C47-9ED3-8534179F982A}
 		{11B49767-DC8E-4736-9A7F-64DE7B33E4A0} = {816039E9-4641-47E9-A4D7-60874BB66BA9}
 		{D5F2D580-20F1-4736-8042-1FE0AD3E579C} = {443FDD8C-69A3-4EAA-8D10-C7DF7DA9815E}
+		{1F004434-C98D-4227-9206-AE06A48905DE} = {97807FFE-9D14-4198-9ECD-2BD00EA43E9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7919B1A5-2856-49CB-874B-775AB8ABD28F}

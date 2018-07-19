@@ -20,7 +20,7 @@
     <PackageReference Include="IFramework.AspNet" Version="2.0.0-prelease-0003" />
     <PackageReference Include="IFramework.DependencyInjection.Autofac" Version="2.0.0-prelease-0002-1" />
     <PackageReference Include="IFramework.JsonNet" Version="2.0.0-prelease-0002" />
-    <PackageReference Include="IFramework.Log4Net" Version="2.0.0-prelease-0004" />
+    <PackageReference Include="IFramework.Log4Net" Version="2.0.0-prelease-0005" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />

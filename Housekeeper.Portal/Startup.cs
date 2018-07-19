@@ -32,7 +32,7 @@ namespace Housekeeper.Portal
                          .UseCommonComponents()
                          .UseJsonNet()
                          .UseEntityFrameworkComponents(typeof(RepositoryBase<>))
-                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseSqlServer(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext))));
+                         .UseDbContextPool<HousekeeperDbContext>(options => options.UseSqlServer(Configuration.Instance.GetConnectionString(nameof(HousekeeperDbContext))), 10000);
         }
 
 
@@ -60,7 +60,7 @@ namespace Housekeeper.Portal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.UseLog4Net();
+            loggerFactory.UseLog4Net(new Log4NetProviderOptions{EnableScope = true});
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
