@@ -40,7 +40,7 @@ namespace Housekeeper.Portal
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMiniProfiler()
-                    //.AddEntityFramework()
+                    .AddEntityFramework()
                     ;
             services.Configure<WeChatApp>(Configuration.Instance.GetSection(nameof(WeChatApp)))
                     .AddMvc()
@@ -86,6 +86,8 @@ namespace Housekeeper.Portal
                                            "spa-fallback",
                                            new {controller = "Home", action = "Index"});
             });
+
+            loggerFactory.CreateLogger<Startup>().LogDebug($"application start up!");
         }
     }
 }

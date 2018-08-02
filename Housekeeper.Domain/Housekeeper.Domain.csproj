@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IFramework" Version="2.0.0-prelease-0008" />
+    <PackageReference Include="IFramework" Version="2.0.0-prelease-0012" />
   </ItemGroup>
 
   <ItemGroup>

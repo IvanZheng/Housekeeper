@@ -30,8 +30,9 @@ namespace Housekeeper.Portal.ApiControllers
         [HttpGet]
         public async Task<House[]> GetAsync()
         {
+            Logger.LogDebug(new { key = "value"});
+            Logger.LogInformation("GetAsync Info");
             var houses = await ProcessAsync(() => _repository.FindAll<House>().ToArrayAsync());
-            await Task.Delay(int.MaxValue);
             return houses;
         }
 
